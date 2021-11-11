@@ -14,11 +14,12 @@ RTC::ReturnCode_t JointStateROSBridge::onInitialize(){
   addInPort("qIn", this->m_qIn_);
   addOutPort("qOut", this->m_qOut_);
 
+  ros::NodeHandle pnh("~");
+
   cnoid::BodyLoader bodyLoader;
 
   std::string fileName;
-  if(this->getProperties().hasKey("model")) fileName = std::string(this->getProperties()["model"]);
-  else fileName = std::string(this->m_pManager->getConfig()["model"]); // 引数 -o で与えたプロパティを捕捉
+  pnh.getParam("model",fileName);
   this->robot_vrml_ = bodyLoader.load(fileName);
   if(!this->robot_vrml_){
     std::cerr << "\x1b[31m[" << m_profile.instance_name << "] " << "failed to load model[" << fileName << "]" << "\x1b[39m" << std::endl;
@@ -28,7 +29,6 @@ RTC::ReturnCode_t JointStateROSBridge::onInitialize(){
   m_qROS_.data.length(robot_vrml_->numJoints());
   for(int i=0;i<robot_vrml_->numJoints();i++) m_qROS_.data[i] = 0.0;
 
-  ros::NodeHandle pnh("~");
   sub_ = pnh.subscribe("input", 1, &JointStateROSBridge::topicCb, this);
   pub_ = pnh.advertise<sensor_msgs::JointState>("output", 1);
 
