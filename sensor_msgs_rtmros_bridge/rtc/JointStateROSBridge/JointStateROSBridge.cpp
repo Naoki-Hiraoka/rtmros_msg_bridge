@@ -57,7 +57,7 @@ void JointStateROSBridge::topicCb(sensor_msgs::JointState::ConstPtr msg){
   if(msg->name.size() != msg->position.size()) return;
   for(int i=0;i<msg->name.size();i++){
     const cnoid::LinkPtr& link = robot_vrml_->link(msg->name[i]);
-    if(!link) return;
+    if(!link) continue;
     m_qROS_.data[link->jointId()] = msg->position[i];
   }
   m_qOut_.write();
