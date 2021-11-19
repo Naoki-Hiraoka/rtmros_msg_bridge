@@ -1,4 +1,5 @@
 #include "OdometryROSBridge.h"
+#include <Eigen/Eigen>
 #include <tf2/utils.h>
 
 OdometryROSBridge::OdometryROSBridge(RTC::Manager* manager):
@@ -71,8 +72,11 @@ void OdometryROSBridge::topicCb(nav_msgs::Odometry::ConstPtr msg){
   m_poseROS_.data.position.x = msg->pose.pose.position.x;
   m_poseROS_.data.position.y = msg->pose.pose.position.y;
   m_poseROS_.data.position.z = msg->pose.pose.position.z;
-  tf2::Quaternion quat(msg->pose.pose.orientation.x,msg->pose.pose.orientation.y,msg->pose.pose.orientation.z,msg->pose.pose.orientation.w);
-  tf2::Matrix3x3(quat).getRPY(m_poseROS_.data.orientation.r,m_poseROS_.data.orientation.p,m_poseROS_.data.orientation.y);
+  // tf2::Matrix3x3::getEulerYPRやtf2::Matrix3x3::getRPYにはバグがある https://github.com/ros/geometry2/issues/504
+  Eigen::Vector3d ypr = Eigen::Quaterniond(msg->pose.pose.orientation.w,msg->pose.pose.orientation.x,msg->pose.pose.orientation.y,msg->pose.pose.orientation.z).toRotationMatrix().eulerAngles(2,1,0);
+  m_poseROS_.data.orientation.r = ypr[2];
+  m_poseROS_.data.orientation.p = ypr[1];
+  m_poseROS_.data.orientation.y = ypr[0];
   m_poseOut_.write();
 
 }
