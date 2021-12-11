@@ -1,0 +1,32 @@
+#include "ExtendedDataTypes.idl" // openrtm
+
+module octomap_msgs_rtmros_bridge
+{
+  // see octomap_msgs/Octomap
+  struct OctomapIdl
+  {
+    boolean binary;
+    string id;
+    double resolution;
+    sequence<octet> data;
+  };
+
+  struct TimedOctomapIdl
+  {
+    RTC::Time tm;
+    OctomapIdl data;
+  };
+
+  // see octomap_msgs/OctomapWithPose
+  struct OctomapWithPoseIdl
+  {
+    RTC::Pose3D origin;
+    OctomapIdl octomap;
+  };
+
+  struct TimedOctomapWithPose
+  {
+    RTC::Time tm;
+    OctomapWithPoseIdl data;
+  };
+};
