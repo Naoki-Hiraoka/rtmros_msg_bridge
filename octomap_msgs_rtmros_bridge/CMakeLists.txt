@@ -19,7 +19,7 @@ rtmbuild_init()
 
 catkin_package(
 #  INCLUDE_DIRS include
-  LIBRARIES OctmapSkel OctmapStub
+  LIBRARIES OctomapSkel OctomapStub
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
