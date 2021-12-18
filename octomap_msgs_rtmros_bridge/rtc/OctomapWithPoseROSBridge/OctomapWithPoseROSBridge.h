@@ -15,6 +15,8 @@
 
 class OctomapWithPoseROSBridge : public RTC::DataFlowComponentBase{
 protected:
+  ros::NodeHandle nh; // これがないとうまく通信できなくなったり、CPU使用率100%になったりする
+
   octomap_msgs_rtmros_bridge::TimedOctomapWithPose m_inData_;
   RTC::InPort<octomap_msgs_rtmros_bridge::TimedOctomapWithPose> m_In_;
   ros::Publisher pub_;

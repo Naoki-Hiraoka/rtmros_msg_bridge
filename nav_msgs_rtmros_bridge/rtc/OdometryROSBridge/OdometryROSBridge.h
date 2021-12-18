@@ -14,6 +14,8 @@
 
 class OdometryROSBridge : public RTC::DataFlowComponentBase{
 protected:
+  ros::NodeHandle nh; // これがないとうまく通信できなくなったり、CPU使用率100%になったりする
+
   RTC::TimedPose3D m_poseRTM_;
   RTC::InPort<RTC::TimedPose3D> m_poseIn_;
   ros::Publisher pub_;

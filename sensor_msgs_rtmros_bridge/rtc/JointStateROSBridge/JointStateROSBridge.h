@@ -17,6 +17,8 @@ class JointStateROSBridge : public RTC::DataFlowComponentBase{
 protected:
   cnoid::BodyPtr robot_vrml_;
 
+  ros::NodeHandle nh; // これがないとうまく通信できなくなったり、CPU使用率100%になったりする
+
   RTC::TimedDoubleSeq m_qRTM_;
   RTC::InPort<RTC::TimedDoubleSeq> m_qIn_;
   ros::Publisher pub_;

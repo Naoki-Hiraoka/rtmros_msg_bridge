@@ -14,6 +14,8 @@
 
 class WrenchStampedROSBridge : public RTC::DataFlowComponentBase{
 protected:
+  ros::NodeHandle nh; // これがないとうまく通信できなくなったり、CPU使用率100%になったりする
+
   RTC::TimedDoubleSeq m_wrenchRTM_;
   RTC::InPort<RTC::TimedDoubleSeq> m_wrenchIn_;
   ros::Publisher pub_;
