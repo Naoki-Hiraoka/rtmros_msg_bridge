@@ -1,5 +1,4 @@
 #include "WrenchStampedROSBridge.h"
-#include <tf2/utils.h>
 
 WrenchStampedROSBridge::WrenchStampedROSBridge(RTC::Manager* manager):
   RTC::DataFlowComponentBase(manager),

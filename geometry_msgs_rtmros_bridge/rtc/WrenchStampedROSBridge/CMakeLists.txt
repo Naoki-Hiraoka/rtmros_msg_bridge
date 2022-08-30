@@ -8,8 +8,7 @@ add_definitions(-Wno-deprecated)
 find_package(catkin REQUIRED COMPONENTS
   rtmbuild
   roscpp
-  nav_msgs
-  tf2
+  geometry_msgs
   )
 
 include_directories(${catkin_INCLUDE_DIRS})
