@@ -1,1 +1,2 @@
 add_subdirectory(JointStateROSBridge)
+add_subdirectory(JoyROSBridge)
