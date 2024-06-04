@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.2)
 project(geometry_msgs_rtmros_bridge)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11)
+set(CMAKE_CXX_STANDARD 14)
 
 # rtmbuild has non exist dependency
 # (ROSBUILD_genmsg_cpp) and (RTMBUILD_${PROJECT_NAME}_genidl)

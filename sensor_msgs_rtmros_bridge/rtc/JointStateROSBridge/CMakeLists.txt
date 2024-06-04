@@ -1,4 +1,4 @@
-add_compile_options(-std=c++11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_BUILD_TYPE Release)
 
 # openrtm has deprecated coding. This causes too many warnings.
